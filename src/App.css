@@ -1,0 +1,34 @@
+body {
+  background-color: rgb(240, 231, 235);
+  /* font-family: "Courier New", Courier, monospace; */
+  font-family: "Roboto", sans-serif;
+}
+
+.pre-home-button {
+  background-color: rgb(255, 123, 0);
+
+  border: none;
+}
+.pre-home-button:hover {
+  background-color: rgb(223, 134, 51);
+}
+.pre-home-button:active {
+  background-color: rgb(255, 152, 55) !important;
+}
+
+#login-form {
+  width: 300px !important;
+}
+#badge {
+  box-shadow: -5px 5px 20px rgb(233, 172, 115);
+  border-color: rgb(250, 225, 202) !important;
+}
+.border-bottom {
+  border-color: rgb(246, 157, 75) !important;
+}
+.new-article-button {
+  border-color: rgb(246, 197, 152) !important;
+}
+.new-article-button:active {
+  background-color: rgb(247, 184, 125) !important;
+}
