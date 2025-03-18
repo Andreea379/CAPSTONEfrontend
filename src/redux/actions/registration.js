@@ -1,3 +1,5 @@
+// import { useNavigate } from "react-router-dom";
+
 export const REGISTER_USER_REQUEST = "REGISTER_USER_REQUEST";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
 export const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
@@ -16,34 +18,34 @@ export const registerUserFailure = (error) => ({
   payload: error
 });
 
-export const registerUser = (userData, avatar) => async (dispatch) => {
-  dispatch(registerUserRequest());
+export const registerUser =
+  (userData, avatar, navigate) => async (dispatch) => {
+    // const navigate = useNavigate();
+    dispatch(registerUserRequest());
+    const formData = new FormData();
+    formData.append(
+      "user",
+      new Blob([JSON.stringify(userData)], { type: "application/json" })
+    );
+    formData.append("avatar", avatar);
 
-  //   console.log(userData);
+    try {
+      const response = await fetch("http://localhost:8080/user/registration", {
+        method: "POST",
+        body: formData
+      });
+      console.log();
 
-  const formData = new FormData();
-  formData.append(
-    "user",
-    new Blob([JSON.stringify(userData)], { type: "application/json" })
-  );
-  formData.append("avatar", avatar);
-
-  try {
-    const response = await fetch("http://localhost:8080/user/registration", {
-      method: "POST",
-      body: formData
-    });
-    console.log();
-
-    if (response.ok) {
-      const registration = await response.json();
-      console.log("Registration response:", registration);
-      dispatch(registerUserSuccess(registration));
-      console.log(registration);
-    } else {
-      throw new Error("Registration Failed!");
+      if (response.ok) {
+        const registration = await response.json();
+        console.log("Registration response:", registration);
+        dispatch(registerUserSuccess(registration));
+        console.log(registration);
+        navigate("/home");
+      } else {
+        throw new Error("Registration Failed!");
+      }
+    } catch (error) {
+      dispatch(registerUserFailure(error.message));
     }
-  } catch (error) {
-    dispatch(registerUserFailure(error.message));
-  }
-};
+  };

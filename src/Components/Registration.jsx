@@ -1,36 +1,11 @@
-// import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { registerUser } from "../redux/actions/registration";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Form } from "react-bootstrap";
-// import { useState } from "react";
 import { registerUser } from "../redux/actions/registration";
 
 const Registration = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [avatar, setAvatar] = useState("");
-  //   {
-  //   username: "",
-
-  //   email: "",
-  //   password: "",
-  //   firstName: "",
-  //   lastName: "",
-  //   avatar: null
-  // }
-  // );
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setUserData({ ...userData, [name]: value });
-  // };
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,32 +25,11 @@ const Registration = () => {
       userData.firstName &&
       userData.lastName
     ) {
-      dispatch(registerUser(userData, avatar));
+      dispatch(registerUser(userData, avatar, navigate));
     } else {
       console.log("Please fill all the fields!");
     }
   };
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     if (registrationData) {
-  //       setUserData({
-  //         username: registrationData.username || "",
-  //         email: registrationData.email || "",
-  //         password: registrationData.password || "",
-  //         firstName: registrationData.firstName || "",
-  //         lastName: registrationData.lastName || ""
-  //       });
-  //     } else {
-  //       setUserData({
-  //         username: "",
-  //         email: "",
-  //         password: "",
-  //         firstName: "",
-  //         lastName: ""
-  //       });
-  //     }
-  //   }
-  // }, [isOpen, registrationData]);
 
   return (
     <Container
@@ -95,10 +49,6 @@ const Registration = () => {
               id="username"
               type="text"
               className="border border-secondary-subtle"
-              // value={username}
-              // onChange={(event) => {
-              //   setUsername(event.target.value);
-              // }}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -107,10 +57,6 @@ const Registration = () => {
               id="email"
               type="email"
               className="border border-secondary-subtle"
-              // value={email}
-              // onChange={(event) => {
-              //   setEmail(event.target.value);
-              // }}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -119,10 +65,6 @@ const Registration = () => {
               id="password"
               type="password"
               className="border border-secondary-subtle"
-              // value={password}
-              // onChange={(event) => {
-              //   setPassword(event.target.value);
-              // }}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -131,10 +73,6 @@ const Registration = () => {
               id="firstName"
               type="text"
               className="border border-secondary-subtle"
-              // value={firstName}
-              // onChange={(event) => {
-              //   setFirstName(event.target.value);
-              // }}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -143,10 +81,6 @@ const Registration = () => {
               id="lastName"
               type="text"
               className="border border-secondary-subtle"
-              // value={lastName}
-              // onChange={(event) => {
-              //   setLastName(event.target.value);
-              // }}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -155,16 +89,12 @@ const Registration = () => {
               id="avatar"
               type="file"
               className="border border-secondary-subtle"
-              // value={avatar}
-              // onChange={(event) => {
-              //   setAvatar(event.target.value);
-              // }}
             />
           </Form.Group>
           <Button
             className="pre-home-button w-100 "
             type="submit"
-            // onClick={handleInputChange}
+            // onClick={handleClick}
           >
             Sign up
           </Button>
