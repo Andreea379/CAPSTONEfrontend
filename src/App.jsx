@@ -19,8 +19,8 @@ function App() {
         <Route path="/" element={<PreHomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        {/* <Route path="/" element={<Home />} />
-        <Route path="/newArticle" element={<NewArticle />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/newArticle" element={<NewArticle />} />
       </Routes>
     </BrowserRouter>
   );
