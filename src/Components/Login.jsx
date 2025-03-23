@@ -1,9 +1,11 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { fetchLogin } from "../redux/actions/login";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const Login = () => {
     };
 
     console.log(login);
-    dispatch(fetchLogin(login));
+    dispatch(fetchLogin(login, navigate));
   };
   return (
     <Container
@@ -31,7 +33,6 @@ const Login = () => {
           <Form.Group className="mb-4">
             <Form.Label className="">Username</Form.Label>
             <Form.Control
-              // id="login-form"
               id="username"
               type="text"
               className="border border-secondary-subtle"
@@ -41,7 +42,6 @@ const Login = () => {
           <Form.Group className="mb-4">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              // id="login-form"
               id="password"
               type="password"
               className="border border-secondary-subtle"

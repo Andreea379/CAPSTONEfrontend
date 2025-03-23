@@ -20,7 +20,6 @@ export const registerUserFailure = (error) => ({
 
 export const registerUser =
   (userData, avatar, navigate) => async (dispatch) => {
-    // const navigate = useNavigate();
     dispatch(registerUserRequest());
     const formData = new FormData();
     formData.append(
@@ -40,8 +39,7 @@ export const registerUser =
         const registration = await response.json();
         console.log("Registration response:", registration);
         dispatch(registerUserSuccess(registration));
-        console.log(registration);
-        navigate("/home");
+        navigate("/login");
       } else {
         throw new Error("Registration Failed!");
       }
