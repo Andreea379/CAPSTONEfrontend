@@ -27,6 +27,7 @@ const Home = () => {
 
   if (allArticlesLoading) return <div>Loading profiles...</div>;
   if (allArticlesError) return <div>Error: {allArticlesError}</div>;
+
   return (
     <>
       <MyNavBar />
@@ -41,7 +42,7 @@ const Home = () => {
           >
             <div className="profile-image-home-container d-flex justify-content-center align-items-center ">
               <Image
-                src={articles.articleImage || profileImage}
+                src={articles.authorProfileImage || profileImage}
                 className="profile-image-home rounded "
               />
             </div>

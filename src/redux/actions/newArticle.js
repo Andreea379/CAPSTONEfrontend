@@ -85,23 +85,20 @@ export const allArticlesFailure = (error) => ({
 
 export const fetchAllArticles = () => async (dispatch) => {
   dispatch(allArticlesRequest());
-  const token = localStorage.getItem("token");
   try {
     const response = await fetch("http://localhost:8080/article/getAll", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: {}
     });
 
-    if (response.ok) {
-      const articles = await response.json();
-      console.log("All articles loading response:", articles);
-      dispatch(allArticlesSuccess(articles));
-      console.log(articles);
-    } else {
-      throw new Error("All articles loading failed!");
+    if (!response.ok) {
+      const error = await response.json();
+      console.log("all articles respons not ok", error);
     }
+    const articles = await response.json();
+    console.log("All articles loading response:", articles);
+    dispatch(allArticlesSuccess(articles));
+    console.log(articles);
   } catch (error) {
     dispatch(allArticlesFailure(error.message));
   }
