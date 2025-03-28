@@ -1,10 +1,10 @@
 import { Container, Image } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
-import profileImage from "../assets/download.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllArticles } from "../redux/actions/newArticle";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import avatar from "../assets/avatar.png";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Home = () => {
     <>
       <MyNavBar />
 
-      <Container className=" mt-5">
+      <Container className="mt-5">
         {allArticles.map((articles, index) => (
           <div
             className={`d-flex justify-content-center  align-items-center ${
@@ -42,19 +42,30 @@ const Home = () => {
           >
             <div className="profile-image-home-container d-flex justify-content-center align-items-center ">
               <Image
-                src={articles.authorProfileImage || profileImage}
-                className="profile-image-home rounded "
+                src={articles.authorProfileImage || avatar}
+                className="profile-image-home rounded rounded-sm "
               />
             </div>
             <div className="triangle-left"></div>
-            <div className="container-article-home  w-75 my-4 rounded-pill px-5">
-              <h3>{articles.title || "Untitled Article"}</h3>
-              {articles.content || "Untitled Article"}{" "}
-              <a className="login-anchor" onClick={handleClick}>
-                read more
-              </a>
-              <p className="pt-3">
-                Publication date: {articles.publishedAt || "Untitled Article"}
+            <div className="container-article-home w-75 my-4 rounded-pill px-5 py-3">
+              <h3 className="fw-bold mb-0 ">
+                {articles.title || "Untitled Article"}
+              </h3>
+              <div className="d-flex align-items-center w-100">
+                <span className="text-truncate w-75 d-block fs-5">
+                  {articles.content || "No content"}
+                </span>
+                <a className="login-anchor w-25 p-0 ms-2" onClick={handleClick}>
+                  <span className="d-none d-sm-none d-md-block">read more</span>
+                  <span className="d-block d-md-none">...</span>
+                </a>
+              </div>
+
+              <p className="d-flex align-items-center pt-3">
+                <span className="d-none d-sm-none d-md-block">
+                  Publication date:{" "}
+                </span>
+                {articles.publishedAt || "--"}
               </p>
             </div>
           </div>
