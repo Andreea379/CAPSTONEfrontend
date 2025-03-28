@@ -18,32 +18,30 @@ export const registerUserFailure = (error) => ({
   payload: error
 });
 
-export const registerUser =
-  (userData, avatar, navigate) => async (dispatch) => {
-    dispatch(registerUserRequest());
-    const formData = new FormData();
-    formData.append(
-      "user",
-      new Blob([JSON.stringify(userData)], { type: "application/json" })
-    );
-    formData.append("avatar", avatar);
+export const registerUser = (userData, navigate) => async (dispatch) => {
+  dispatch(registerUserRequest());
+  const formData = new FormData();
+  formData.append(
+    "user",
+    new Blob([JSON.stringify(userData)], { type: "application/json" })
+  );
 
-    try {
-      const response = await fetch("http://localhost:8080/user/registration", {
-        method: "POST",
-        body: formData
-      });
-      console.log();
+  try {
+    const response = await fetch("http://localhost:8080/user/registration", {
+      method: "POST",
+      body: formData
+    });
+    console.log();
 
-      if (response.ok) {
-        const registration = await response.json();
-        console.log("Registration response:", registration);
-        dispatch(registerUserSuccess(registration));
-        navigate("/login");
-      } else {
-        throw new Error("Registration Failed!");
-      }
-    } catch (error) {
-      dispatch(registerUserFailure(error.message));
+    if (response.ok) {
+      const registration = await response.json();
+      console.log("Registration response:", registration);
+      dispatch(registerUserSuccess(registration));
+      navigate("/login");
+    } else {
+      throw new Error("Registration Failed!");
     }
-  };
+  } catch (error) {
+    dispatch(registerUserFailure(error.message));
+  }
+};

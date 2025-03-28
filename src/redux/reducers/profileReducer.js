@@ -4,7 +4,8 @@ import {
   UPDATE_PROFILE_FAILURE,
   PROFILE_REQUEST,
   PROFILE_SUCCESS,
-  PROFILE_FAILURE
+  PROFILE_FAILURE,
+  CALL_NEW_GET
 } from "../actions/profile";
 const initialState = {
   profileLoading: false,
@@ -13,7 +14,9 @@ const initialState = {
 
   updateProfileLoading: false,
   updateProfile: [],
-  updateProfileError: null
+  updateProfileError: null,
+
+  callNewGet: false
 };
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -56,6 +59,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         updateProfileLoading: false,
         updateProfileError: action.payload
+      };
+    case CALL_NEW_GET:
+      return {
+        ...state,
+        callNewGet: action.payload
       };
 
     default:

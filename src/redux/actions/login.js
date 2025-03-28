@@ -26,17 +26,23 @@ export const fetchLogin = (login, navigate) => async (dispatch) => {
 
     if (response.ok) {
       const loginResponse = await response.json();
+
       dispatch(
         loginSuccess({
           token: loginResponse.token,
           userId: loginResponse.id,
           email: loginResponse.email,
-          roles: loginResponse.roles
+          roles: loginResponse.roles,
+          profileId: loginResponse.profileId
         })
       );
       localStorage.setItem("token", loginResponse.token);
+      localStorage.setItem("userId", loginResponse.id);
+      localStorage.setItem("profileId", loginResponse.profileId);
+      console.log("Token set in localStorage:", loginResponse.token);
+      console.log("UserId set in localStorage:", loginResponse.id);
       navigate("/home");
-      console.log(loginResponse.token);
+      console.log("Login Response:", loginResponse);
     } else {
       throw new Error("Login Failed!");
     }
