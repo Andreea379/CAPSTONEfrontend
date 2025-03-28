@@ -9,7 +9,6 @@ import NewArticle from "./Components/NewArticle";
 import Profile from "./Components/Profile";
 import Search from "./Components/Search";
 import ReadArticle from "./Components/ReadArticle";
-import ChartComponent from "./Components/Calendar";
 import Calendar from "./Components/Calendar";
 
 function App() {
