@@ -166,6 +166,9 @@ const Profile = () => {
           <Calendar />
         </div>
       </Container>
+      <div className="d-lg-block d-xl-none">
+        <Calendar />
+      </div>
     </>
   );
 };
