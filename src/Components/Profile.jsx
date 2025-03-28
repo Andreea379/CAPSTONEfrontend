@@ -7,9 +7,12 @@ import ProfileModal from "./ProfileModal";
 import { useEffect } from "react";
 import { fetchProfile } from "../redux/actions/profile";
 import { BsPencilSquare } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import Calendar from "./Calendar";
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const profile = useSelector((state) => state.profile.profile);
   const profileLoading = useSelector((state) => state.profile.profileLoading);
@@ -18,7 +21,9 @@ const Profile = () => {
   const [modalShow, setModalShow] = useState(false);
   const handleShow = () => setModalShow(true);
   const handleClose = () => setModalShow(false);
-
+  const onNavigate = () => {
+    navigate("/calendar");
+  };
   const callNewGet = useSelector((state) => state.profile.callNewGet);
   console.log(callNewGet);
   useEffect(() => {
@@ -37,6 +42,7 @@ const Profile = () => {
 
   const profileData = profile[0];
   const articles = profileData?.article || [];
+  console.log(articles);
   return (
     <>
       <MyNavBar />
@@ -68,7 +74,7 @@ const Profile = () => {
               <div className="profile-image-profile-container text-center mb-4 mx-auto mx-lg-0">
                 <Image
                   src={profileData?.profileImage || profileImage}
-                  className="profile-image-home rounded "
+                  className="profile-image-home rounded mt-1"
                 />
               </div>
             </Col>
@@ -80,8 +86,7 @@ const Profile = () => {
               className="text-lg-start text-center pt-3 me-xxl-5 pb-sm-3"
             >
               <h4 className="pt-0 mt-0 fw-bold fs-1">
-                {profileData?.firstName || "Untitled Article"}{" "}
-                {profileData?.lastName || "Untitled Article"}
+                {profileData?.firstName || ""} {profileData?.lastName || ""}
               </h4>
               <div className="mb-2">
                 <span className=" fw-bold fs-5 ">Profession:</span>
@@ -100,6 +105,7 @@ const Profile = () => {
                   <span
                     className="fs-6 pb-sm-3 fw-bold my-5"
                     style={{ color: "rgb(246, 157, 75)" }}
+                    onClick={onNavigate}
                   >
                     Statistics
                   </span>
@@ -156,6 +162,7 @@ const Profile = () => {
             )}
           </Row>
         </div>
+        <Calendar />
       </Container>
     </>
   );
