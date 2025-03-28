@@ -4,16 +4,16 @@ body {
   font-family: "Courier New", Courier, monospace;
   /* font-family: "Roboto", sans-serif; */
 }
-* {
+/* * {
   background-color: black;
   color: white;
-}
+} */
 #logo {
   color: rgb(255, 123, 0);
   font-weight: 1000;
 }
 .pre-home-button {
-  background-color: rgb(255, 123, 0);
+  background-color: rgb(223, 134, 51);
 
   border: none;
 }
@@ -23,6 +23,19 @@ body {
 .pre-home-button:active {
   background-color: rgb(255, 152, 55) !important;
 }
+.sign-up {
+  color: rgb(255, 123, 0) !important;
+}
+.login-anchor {
+  color: rgb(255, 123, 0) !important;
+  cursor: pointer;
+}
+.asterisk {
+  margin-bottom: 7px;
+  margin-left: -7px;
+  padding: 2px;
+  color: rgb(248, 60, 60);
+}
 #badge {
   box-shadow: -5px 5px 20px rgb(233, 172, 115);
   border-color: rgb(250, 225, 202) !important;
@@ -31,10 +44,22 @@ body {
   border-color: rgb(246, 157, 75) !important;
 }
 .new-article-button {
-  border-color: rgb(246, 197, 152) !important;
+  border: 3px solid rgb(246, 197, 152) !important;
+  font-weight: 550 !important;
+  font-size: 17px !important;
 }
 .new-article-button:active {
   background-color: rgb(247, 184, 125) !important;
+}
+.search-icon {
+  color: rgb(247, 184, 125) !important;
+}
+.form-control {
+  border: 2px solid rgb(246, 197, 152) !important;
+}
+.form-control:focus {
+  border: 1px solid rgb(246, 197, 152) !important;
+  box-shadow: 0 0 0 0.2rem rgb(252, 214, 180) !important;
 }
 .title-input {
   font-size: 50px;
@@ -51,10 +76,114 @@ body {
   border: transparent;
   box-shadow: none;
 }
+
 .content-input {
   font-size: 20px;
 }
 .category-input {
   font-size: 18px;
   width: 20%;
+}
+.profile-image-home-container {
+  background-color: rgb(246, 157, 75) !important;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+}
+.profile-image-home {
+  border-radius: 50% !important;
+  width: 130px;
+  height: 130px;
+}
+.container-article-home {
+  border: 3px solid rgb(246, 157, 75) !important;
+}
+#triangle-right {
+  width: 0;
+  height: 0;
+  border-bottom: 0.8vw solid transparent;
+  border-right: 1.5vw solid rgb(246, 157, 75);
+  border-top: 0.8vw solid transparent;
+  margin-right: -2px;
+  margin-left: -3px;
+}
+.triangle-left {
+  width: 0;
+  height: 0;
+  border-bottom: 0.8vw solid transparent;
+  border-left: 1.5vw solid rgb(246, 157, 75);
+  border-top: 0.8vw solid transparent;
+  margin-right: -2px;
+  margin-left: -3px;
+}
+.profile-image-profile-container {
+  background-color: rgb(246, 157, 75) !important;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  /* margin-top: -70%; */
+}
+#profile-container-articles {
+  border-left: 2px solid rgb(246, 157, 75) !important;
+}
+/* .pencil-profile {
+  margin-right: -200px;
+} */
+.dropdown-menu {
+  --bs-dropdown-min-width: 7rem !important;
+  border: 1px solid rgb(246, 157, 75);
+  --bs-dropdown-padding-y: 0;
+}
+.profile-dropdown:hover {
+  background-color: rgb(247, 184, 125) !important;
+}
+.calendar {
+  max-width: 350px;
+  margin: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.calendar-header {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-day-header {
+  font-weight: bold;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.date-cell {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.color-blue {
+  background-color: lightblue;
+  color: white;
+}
+.color-green {
+  background-color: green;
+  color: white;
+}
+
+.color-profile {
+  background-color: lightgreen;
+  color: white;
+}
+
+.date-cell:hover {
+  background-color: #ddd;
 }
