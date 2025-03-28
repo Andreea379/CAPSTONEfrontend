@@ -12,7 +12,7 @@ import { BsPlus } from "react-icons/bs";
 import logo from "../assets/logo.svg";
 
 import profileImage from "../assets/download.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { newArticle } from "../redux/actions/newArticle";
 import { BiCamera } from "react-icons/bi";
@@ -20,6 +20,11 @@ import { BiCamera } from "react-icons/bi";
 const NewArticle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const profile = useSelector((state) => state.profile.profile);
+  const profileLoading = useSelector((state) => state.profile.profileLoading);
+  const profileError = useSelector((state) => state.profile.profileError);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,6 +48,11 @@ const NewArticle = () => {
   const handleClick1 = () => {
     navigate("/home");
   };
+
+  if (profileLoading) return <div>Loading profiles...</div>;
+  if (profileError) return <div>Error profiles: {profileError}</div>;
+
+  const profileData = profile[0];
   return (
     <Form onSubmit={handleSubmit}>
       <div className="d-flex justify-content-center">
@@ -74,7 +84,7 @@ const NewArticle = () => {
             </Button>
 
             <Image
-              src={profileImage}
+              src={profileData?.profileImage || profileImage}
               className="profile-image-home rounded me-5"
               style={{ width: "45px", height: "45px" }}
               onClick={handleClick}

@@ -14,12 +14,16 @@ import profileImage from "../assets/download.png";
 import { BsBoxArrowRight } from "react-icons/bs";
 import { useState } from "react";
 import { firstNameProfiles } from "../redux/actions/search";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 const MyNavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [firstnameQuery, setFirstnameQuery] = useState("");
+  const profile = useSelector((state) => state.profile.profile);
+  const profileLoading = useSelector((state) => state.profile.profileLoading);
+  const profileError = useSelector((state) => state.profile.profileError);
+  console.log(profile);
 
   const handleClick = () => {
     navigate("/newArticle");
@@ -45,6 +49,10 @@ const MyNavBar = () => {
       navigate(`findBy?firstName=${firstnameQuery}`);
     }
   };
+  if (profileLoading) return <div>Loading profiles...</div>;
+  if (profileError) return <div>Error profiles: {profileError}</div>;
+  const profileData = profile[0];
+  console.log(profileData);
   return (
     <Navbar expand="md" className="border-bottom">
       <Container
@@ -96,7 +104,7 @@ const MyNavBar = () => {
             <NavDropdown
               title={
                 <Image
-                  src={profileImage}
+                  src={profileData?.profileImage || profileImage}
                   className="profile-image-home rounded"
                   style={{ width: "45px", height: "45px" }}
                 />
