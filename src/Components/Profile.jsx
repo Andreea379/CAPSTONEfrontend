@@ -162,7 +162,9 @@ const Profile = () => {
             )}
           </Row>
         </div>
-        <Calendar />
+        <div className="d-none d-xl-block">
+          <Calendar />
+        </div>
       </Container>
     </>
   );
