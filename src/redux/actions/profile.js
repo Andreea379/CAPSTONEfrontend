@@ -42,12 +42,15 @@ export const fetchProfile = () => async (dispatch) => {
           lastName: profile.lastName,
           profession: profile.profession,
           description: profile.description,
+          profileImage: profile.profileImage,
           article: profile.article
         })
       );
       localStorage.setItem("profileId", profile.id);
+      localStorage.setItem("articleId", profile.article.articleId);
       console.log(profile.id);
       console.log(profile);
+      console.log(profile.article.articleId);
     } else {
       throw new Error("User profiles loading failed!");
     }
@@ -55,6 +58,13 @@ export const fetchProfile = () => async (dispatch) => {
     dispatch(profileFailure(error.message));
   }
 };
+export const CALL_NEW_GET = "CALL_NEW_GET";
+
+export const callNewGet = (newGet) => ({
+  type: CALL_NEW_GET,
+  payload: newGet
+});
+
 export const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
 export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
 export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
@@ -110,12 +120,14 @@ export const updateProfile =
       if (response.ok) {
         const profileUpdate = await response.json();
         console.log("Profile update response:", profileUpdate);
+
         dispatch(updateProfileSuccess(profileUpdate));
-        navigate("/profile");
+
         console.log(profileUpdate);
       } else {
         throw new Error("Profile update Failed!");
       }
+      dispatch(callNewGet(true));
     } catch (error) {
       dispatch(updateProfileFailure(error.message));
     }
