@@ -4,8 +4,6 @@ import MyNavBar from "./MyNavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ProfileModal from "./ProfileModal";
-
-// import { fetchUserArticles } from "../redux/actions/newArticle";
 import { useEffect } from "react";
 import { fetchProfile } from "../redux/actions/profile";
 import { BsPencilSquare } from "react-icons/bs";
@@ -13,13 +11,6 @@ import { BsPencilSquare } from "react-icons/bs";
 const Profile = () => {
   const dispatch = useDispatch();
 
-  // const userArticles = useSelector((state) => state.article.userArticles);
-  // const userArticlesLoading = useSelector(
-  //   (state) => state.article.userArticlesLoading
-  // );
-  // const userArticlesError = useSelector(
-  //   (state) => state.article.userArticlesError
-  // );
   const profile = useSelector((state) => state.profile.profile);
   const profileLoading = useSelector((state) => state.profile.profileLoading);
   const profileError = useSelector((state) => state.profile.profileError);
@@ -28,42 +19,23 @@ const Profile = () => {
   const handleShow = () => setModalShow(true);
   const handleClose = () => setModalShow(false);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const profileData = {
-  //     firstName: e.target.elements.firstName.value,
-  //     lastName: e.target.elements.lastName.value,
-  //     profession: e.target.elements.profession.value,
-  //     description: e.target.elements.description.value
-  //   };
-  //   const profileImage = e.target.elements.profileImage.files[0];
-  //   if (
-  //     profileData.firstName &&
-  //     profileData.lastName &&
-  //     profileData.profession &&
-  //     profileData.description
-  //   ) {
-  //     dispatch(newProfile(profileData, profileImage));
-  //   } else {
-  //     console.log("Please fill all the fields!");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(fetchUserArticles());
-  // }, [dispatch]);
-
+  const callNewGet = useSelector((state) => state.profile.callNewGet);
+  console.log(callNewGet);
   useEffect(() => {
     dispatch(fetchProfile());
-    // dispatch(fetchUserArticles());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(callNewGet);
+    if (callNewGet) {
+      dispatch(fetchProfile());
+    }
+  }, [dispatch, callNewGet]);
+
   if (profileLoading) return <div>Loading profiles...</div>;
   if (profileError) return <div>Error profiles: {profileError}</div>;
-  // if (userArticlesLoading) return <div>Loading articles...</div>;
-  // if (userArticlesError) return <div>Error profiles:{userArticlesError}</div>;
 
-  const profileData = profile[0]; // Access the first profile object
+  const profileData = profile[0];
   const articles = profileData?.article || [];
   return (
     <>
@@ -72,38 +44,75 @@ const Profile = () => {
         className="d-flex justify-content-center align-items-center "
         style={{ marginTop: "5%" }}
       >
-        {/* {profile && ( */}
-        {/* // .map((profileData) => */}
         <div id="badge" className="bg-light p-5 badge border w-75">
-          <Row
-            className="text-dark d-flex align-self-start m-0 p-0 border-bottom"
-            // key={profileData.profileId}
-          >
-            <Col sm={2} className="me-5">
-              <div className="profile-image-profile-container d-flex justify-content-center align-items-center ">
+          <Row className="text-dark d-flex align-self-start m-0 p-0 border-bottom">
+            <Row className="d-md-block d-lg-none d-flex justify-content-end align-items-center">
+              <Col
+                sm={14}
+                md={12}
+                className="d-flex justify-content-end align-items-center ms-4 ps-5"
+              >
+                <div>
+                  <Button
+                    className="bg-transparent border-0 text-dark d-flex justify-content-end align-items-center"
+                    onClick={handleShow}
+                  >
+                    <BsPencilSquare className="pencil-profile fs-4 ms-xl-5" />
+                  </Button>
+
+                  <ProfileModal show={modalShow} handleClose={handleClose} />
+                </div>
+              </Col>
+            </Row>
+            <Col sm={12} md={12} lg={2} className="me-lg-5 ps-xl-4 ">
+              <div className="profile-image-profile-container text-center mb-4 mx-auto mx-lg-0">
                 <Image
                   src={profileData?.profileImage || profileImage}
                   className="profile-image-home rounded "
                 />
               </div>
             </Col>
-            <Col sm={6} className="text-start">
-              <h4 className="pt-0 mt-0 fw-bold">
+
+            <Col
+              sm={12}
+              md={12}
+              lg={5}
+              className="text-lg-start text-center pt-3 me-xxl-5 pb-sm-3"
+            >
+              <h4 className="pt-0 mt-0 fw-bold fs-1">
                 {profileData?.firstName || "Untitled Article"}{" "}
                 {profileData?.lastName || "Untitled Article"}
               </h4>
-              <h6 className="pt-0 mt-0 fw-bold">Profession:</h6>
-              <p>{profileData?.profession || ""}</p>
-              <h6 className="pt-0 mt-0 fw-bold">Description:</h6>
-              <p>{profileData?.description || ""}</p>
+              <div className="mb-2">
+                <span className=" fw-bold fs-5 ">Profession:</span>
+                <span className="fs-6 ms-lg-2">
+                  {profileData?.profession || ""}
+                </span>
+              </div>
+              <div className=" pb-sm-2">
+                <span className="fw-bold fs-5">Description:</span>
+                <span className="fs-6 ms-2 pb-sm-3">
+                  {profileData?.description || ""}
+                </span>
+              </div>
+              <div>
+                <u style={{ color: "rgb(246, 157, 75)" }}>
+                  <span
+                    className="fs-6 pb-sm-3 fw-bold my-5"
+                    style={{ color: "rgb(246, 157, 75)" }}
+                  >
+                    Statistics
+                  </span>
+                </u>
+              </div>
             </Col>
-            <Col sm={2}>
+            <Col sm={12} md={1} lg={2} className="ms-5 ps-5 d-none d-lg-block">
               <div>
                 <Button
-                  className="bg-transparent border-0 text-dark m-0 p-0"
+                  className="bg-transparent border-0 text-dark ms-lg-5 ps-lg-5"
                   onClick={handleShow}
                 >
-                  <BsPencilSquare className="pencil-profile fs-4" />
+                  <BsPencilSquare className="pencil-profile fs-4 ms-xl-5" />
                 </Button>
 
                 <ProfileModal show={modalShow} handleClose={handleClose} />
@@ -111,28 +120,33 @@ const Profile = () => {
             </Col>
           </Row>
 
-          <Row className="text-dark d-flex text-start align-self-start mt-4 ms-2 p-0  w-75">
-            <h5 className="pt-0 mt-0 fw-bold">Your publications:</h5>
-            {/* {userArticles.map((articles) => ( */}
-            {/* {profile.article && profile.article.length > 0 ? (
-                profile.article.map((article) => ( */}
+          <Row className="text-dark d-flex text-start align-self-start mt-4 ms-lg-2 p-0  w-75">
+            <h5 className="pt-0 mt-0 fw-bold fs-4">Your publications:</h5>
             {articles.length > 0 ? (
               articles.map((article) => (
                 <Row
-                  className="d-flex justify-content-center align-items-center w-75"
+                  className="d-flex justify-content-start align-items-center w-75 mx-auto mx-lg-0 ps-sm-5"
                   key={article.articleId}
                 >
-                  <Col className="pt-3 d-flex justify-content-end  align-items-center">
+                  <Col
+                    sm={2}
+                    lg={2}
+                    md={2}
+                    className="pt-lg-3 d-flex justify-content-end  align-items-center"
+                  >
                     <div className="mb-3 p-0">{article.publishedAt}</div>
                   </Col>
                   <Col
+                    sm={8}
+                    lg={9}
+                    md={8}
                     id="profile-container-articles"
                     className="w-75 border-start d-flex justify-content-start align-items-center  p-0"
                   >
                     <div id="triangle-left" className="ms-0"></div>
-                    <div className="container-article-home my-4 me-2 mx-0 rounded-pill px-4 ">
+                    <div className="container-article-home my-lg-2 me-2 mx-0 rounded-pill px-4 mb-3 mb-sm-2">
                       <h5>{article.title || "Untitled Article"}</h5>
-                      <p>{article.content || "Untitled Article"}</p>
+                      <p>{article.content || "No content"}</p>
                     </div>
                   </Col>
                 </Row>
@@ -142,7 +156,6 @@ const Profile = () => {
             )}
           </Row>
         </div>
-        {/* )} */}
       </Container>
     </>
   );

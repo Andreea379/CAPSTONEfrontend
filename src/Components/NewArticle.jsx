@@ -3,14 +3,19 @@ import {
   Container,
   FloatingLabel,
   Form,
+  Image,
   Nav,
-  Navbar,
-  NavDropdown
+  Navbar
 } from "react-bootstrap";
-import { BsPlus, BsPlusSquare } from "react-icons/bs";
+import { BsPlus } from "react-icons/bs";
+
+import logo from "../assets/logo.svg";
+
+import profileImage from "../assets/download.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { newArticle } from "../redux/actions/newArticle";
+import { BiCamera } from "react-icons/bi";
 
 const NewArticle = () => {
   const dispatch = useDispatch();
@@ -31,38 +36,51 @@ const NewArticle = () => {
       console.log("Please fill all the fields!");
     }
   };
+  const handleClick = () => {
+    navigate("/profile");
+  };
 
+  const handleClick1 = () => {
+    navigate("/home");
+  };
   return (
     <Form onSubmit={handleSubmit}>
       <div className="d-flex justify-content-center">
-        <Navbar expand="lg" className="border-bottom w-100">
-          <Container fluid>
-            <div className="d-flex align-items-center">
-              <div>
-                <Navbar.Brand id="logo">Capstone</Navbar.Brand>
-              </div>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                  <Nav.Link href="#home">Home</Nav.Link>
-                  <Nav.Link href="#link">Link</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
-            </div>
-            <div className="d-flex align-items-center">
-              <Button
-                className="new-article-button d-flex align-items-center rounded-pill py-0 bg-transparent text-dark me-3"
-                type="submit"
-              >
-                Publish
-              </Button>
-              {/* <Button className="new-article-button d-flex align-items-center rounded-pill py-0 bg-transparent text-dark me-3">
-                Save as draft
-              </Button> */}
-              <Nav.Link href="#home">profile</Nav.Link>
-            </div>
-          </Container>
-        </Navbar>
+        <Container
+          fluid
+          className="border-bottom w-100 d-flex justify-content-between align-items-center py-2"
+        >
+          <div className="d-flex justify-content-center align-items-center ms-5 ">
+            <Image
+              src={logo}
+              alt="logo"
+              className="text-primary me-2"
+              style={{ width: "45px" }}
+            />
+            <span
+              onClick={handleClick1}
+              className="fw-bold fs-4 text-dark  ms-0"
+            >
+              Home
+            </span>
+          </div>
+          <div className="d-flex align-items-center">
+            <Button
+              className="new-article-button d-flex align-items-center rounded-pill py-0 bg-transparent text-dark me-3"
+              type="submit"
+              onClick={handleClick}
+            >
+              Publish
+            </Button>
+
+            <Image
+              src={profileImage}
+              className="profile-image-home rounded me-5"
+              style={{ width: "45px", height: "45px" }}
+              onClick={handleClick}
+            />
+          </div>
+        </Container>
       </div>
       <Container className="d-flex justify-content-center mt-5">
         <div className="w-75">
@@ -76,21 +94,29 @@ const NewArticle = () => {
               <Button
                 variant="primary"
                 onClick={() => document.getElementById("articleImage").click()}
-                className="new-article-button bg-transparent py-0 ps-1 d-flex align-items-center text-dark rounded-pill"
+                className="new-article-button bg-transparent py-0 ps-1 d-flex align-items-center text-dark rounded-pill "
               >
-                <BsPlus className="text-dark fs-5" />
-                Add an image
+                <span className="d-none d-md-block">
+                  <BsPlus className="text-dark fs-5" />
+                  Add an image
+                </span>
+                <span className="d-sm-block d-md-none ps-1 fs-5">
+                  <BiCamera />
+                </span>
               </Button>
             </div>
 
             <div className="d-flex justify-content-end align-items-center">
-              <p className="p-0 m-0">Insert the category of your article:</p>
+              <span className="p-0 m-0 d-none d-lg-block">
+                Insert the category of your article:
+              </span>
+              <span className="d-sm-block d-lg-none">Category:</span>
               <Form.Control
                 type="textarea"
                 id="category"
                 placeholder="Category"
                 style={{ height: "29px" }}
-                className="category-input ms-2 ps-2 border-0 rounded-3 text-dark"
+                className="category-input ms-2 ps-2 border-0 rounded-3 text-dark w-25"
               />
             </div>
           </div>
