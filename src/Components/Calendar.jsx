@@ -1,76 +1,3 @@
-// import { fetchProfile } from "../redux/actions/profile";
-// import { Bar } from "recharts";
-// import { useEffect } from "react";
-
-// const ChartComponent = () => {
-// const dispatch = useDispatch();
-
-// const profile = useSelector((state) => state.profile.profile);
-// const profileLoading = useSelector((state) => state.profile.profileLoading);
-// const profileError = useSelector((state) => state.profile.profileError);
-// const profileData = profile[0];
-// const articles = profileData?.article || [];
-// console.log(articles);
-// const [data, setData] = useState([]);
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch("http://localhost:5000/api/data");
-//       if (response.ok) {
-//         const jsonData = await response.json();
-//         setData(jsonData);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//     }
-//   };
-
-//   fetchData();
-// }, []);
-
-// useEffect(() => {
-//   dispatch(fetchProfile());
-// }, [dispatch]);
-
-// useEffect(() => {
-//   if (articles.length > 0) {
-//     const barChart = document.getElementById("barChart").getContext("2d");
-//     new Bar(barChart, {
-//       type: "bar",
-//       data: {
-//         labels: profile.map((item) => item.value),
-//         datasets: [
-//           {
-//             label: "Bar Chart",
-//             data: articles.map((publishedAt) => publishedAt.value),
-//             backgroundColor: "rgba(75, 192, 192, 0.2)",
-//             borderColor: "rgba(75, 192, 192, 1)",
-//             borderWidth: 1
-//           }
-//         ]
-//       },
-//       options: {
-//         scales: {
-//           y: {
-//             beginAtZero: true
-//           }
-//         }
-//       }
-//     });
-//   }
-// }, [articles]);
-// if (profileLoading) return <div>Loading profiles...</div>;
-// if (profileError) return <div>Error profiles: {profileError}</div>;
-//   return (
-//     // <div>
-//     //   <canvas id="barChart" width="400" height="200"></canvas>
-//     // </div>
-//     <Calenda
-//   );
-// };
-
-// export default ChartComponent;
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserArticles } from "../redux/actions/newArticle";
@@ -125,10 +52,6 @@ const Calendar = () => {
       return "";
     }
   };
-  // const currentDateObj = new Date(currentYear, currentMonth, currentDay);
-  // const dateToCheck = new Date(currentYear, currentMonth, day);
-  // const isPastDate = dateToCheck < currentDateObj;
-
   const generateCalendar = () => {
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear();

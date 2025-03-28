@@ -25,11 +25,6 @@ export const newArticle =
 
     console.log(profileId);
 
-    // if (!token) {
-    //   console.log("No token found. Please log in first.");
-    //   navigate("/login");
-    // }
-
     const formData = new FormData();
     formData.append(
       "article",
