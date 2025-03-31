@@ -17,7 +17,6 @@ const Profile = () => {
   const profile = useSelector((state) => state.profile.profile);
   const profileLoading = useSelector((state) => state.profile.profileLoading);
   const profileError = useSelector((state) => state.profile.profileError);
-  console.log(profile);
   const [modalShow, setModalShow] = useState(false);
   const handleShow = () => setModalShow(true);
   const handleClose = () => setModalShow(false);
@@ -25,13 +24,11 @@ const Profile = () => {
     navigate("/calendar");
   };
   const callNewGet = useSelector((state) => state.profile.callNewGet);
-  console.log(callNewGet);
   useEffect(() => {
     dispatch(fetchProfile());
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(callNewGet);
     if (callNewGet) {
       dispatch(fetchProfile());
     }
@@ -42,7 +39,6 @@ const Profile = () => {
 
   const profileData = profile[0];
   const articles = profileData?.article || [];
-  console.log(articles);
   return (
     <>
       <MyNavBar />
@@ -150,15 +146,19 @@ const Profile = () => {
                     className="w-75 border-start d-flex justify-content-start align-items-center  p-0"
                   >
                     <div id="triangle-left" className="ms-0"></div>
-                    <div className="container-article-home my-lg-2 me-2 mx-0 rounded-pill px-4 mb-3 mb-sm-2">
-                      <h5>{article.title || "Untitled Article"}</h5>
-                      <p>{article.content || "No content"}</p>
+                    <div className="container-article-home my-lg-2 me-2 mx-0 rounded-pill px-4 mb-3 mb-sm-2 w-100">
+                      <h5 className="w-75">
+                        {article.title || "Untitled Article"}
+                      </h5>
+                      <p className="text-truncate w-100 d-block">
+                        {article.content || "No content"}
+                      </p>
                     </div>
                   </Col>
                 </Row>
               ))
             ) : (
-              <p>No articles available</p>
+              <p>No articles published yet</p>
             )}
           </Row>
         </div>

@@ -20,8 +20,6 @@ export const fetchProfile = () => async (dispatch) => {
   dispatch(profileRequest());
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-  console.log(userId);
-  console.log(token);
   try {
     const response = await fetch(`http://localhost:8080/profile/${userId}`, {
       method: "GET",
@@ -34,7 +32,6 @@ export const fetchProfile = () => async (dispatch) => {
     }
     if (response.ok) {
       const profile = await response.json();
-      console.log("Profile loading response:", profile);
       dispatch(
         profileSuccess({
           profileId: profile.id,
@@ -48,9 +45,6 @@ export const fetchProfile = () => async (dispatch) => {
       );
       localStorage.setItem("profileId", profile.id);
       localStorage.setItem("articleId", profile.article.articleId);
-      console.log(profile.id);
-      console.log(profile);
-      console.log(profile.article.articleId);
     } else {
       throw new Error("User profiles loading failed!");
     }
@@ -84,17 +78,10 @@ export const updateProfileFailure = (error) => ({
 });
 
 export const updateProfile =
-  (profileData, profileImage, navigate) => async (dispatch) => {
+  (profileData, profileImage) => async (dispatch) => {
     dispatch(updateProfileRequest());
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    console.log(token);
-    console.log(userId);
-
-    if (!token) {
-      console.log("No token found. Please log in first.");
-      navigate("/login");
-    }
 
     const formData = new FormData();
     formData.append(
@@ -115,15 +102,10 @@ export const updateProfile =
           body: formData
         }
       );
-      console.log(token);
-
       if (response.ok) {
-        const profileUpdate = await response.json();
-        console.log("Profile update response:", profileUpdate);
-
-        dispatch(updateProfileSuccess(profileUpdate));
-
-        console.log(profileUpdate);
+        const updateProfile = await response.json();
+        console.log("Profile update response:", updateProfile);
+        dispatch(updateProfileSuccess(updateProfile));
       } else {
         throw new Error("Profile update Failed!");
       }

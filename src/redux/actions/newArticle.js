@@ -1,3 +1,6 @@
+import { CALL_NEW_GET } from "./profile";
+
+import { callNewGet } from "./profile";
 export const NEW_ARTICLE_REQUEST = "NEW_ARTICLE_REQUEST";
 export const NEW_ARTICLE_SUCCESS = "NEW_ARTICLE_SUCCESS";
 export const NEW_ARTICLE_FAILURE = "NEW_ARTICLE_FAILURE";
@@ -21,9 +24,6 @@ export const newArticle =
     dispatch(newArticleRequest());
     const token = localStorage.getItem("token");
     const profileId = localStorage.getItem("profileId");
-    console.log(token);
-
-    console.log(profileId);
 
     const formData = new FormData();
     formData.append(
@@ -32,7 +32,6 @@ export const newArticle =
     );
     formData.append("articleImage", articleImage);
 
-    console.log(formData);
     try {
       const response = await fetch(
         `http://localhost:8080/article/newArticle/${profileId}`,
@@ -44,17 +43,15 @@ export const newArticle =
           body: formData
         }
       );
-      console.log(token);
 
       if (response.ok) {
         const article = await response.json();
-        console.log("Article pubblication response:", article);
         dispatch(newArticleSuccess(article));
-        console.log(article);
         navigate("/profile");
       } else {
         throw new Error("Article pubblication Failed!");
       }
+      dispatch(callNewGet(true));
     } catch (error) {
       dispatch(newArticleFailure(error.message));
     }
@@ -86,14 +83,8 @@ export const fetchAllArticles = () => async (dispatch) => {
       headers: {}
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      console.log("all articles respons not ok", error);
-    }
     const articles = await response.json();
-    console.log("All articles loading response:", articles);
     dispatch(allArticlesSuccess(articles));
-    console.log(articles);
   } catch (error) {
     dispatch(allArticlesFailure(error.message));
   }
@@ -121,8 +112,6 @@ export const fetchUserArticles = () => async (dispatch) => {
   dispatch(userArticlesRequest());
   const token = localStorage.getItem("token");
   const profileId = localStorage.getItem("profileId");
-  console.log("Token:", token);
-  console.log("Retrieved Profile ID:", profileId);
   if (!profileId) {
     console.error("No profile ID found in localStorage!");
     return;
@@ -137,12 +126,8 @@ export const fetchUserArticles = () => async (dispatch) => {
         }
       }
     );
-    if (!response.ok) {
-      console.log("response not ok");
-    }
     if (response.ok) {
       const userArticles = await response.json();
-      console.log("User userArticles loading response:", userArticles);
       dispatch(userArticlesSuccess(userArticles));
     } else {
       throw new Error("User articles loading failed!");
@@ -172,10 +157,7 @@ export const fetchSingleArticle = () => async (dispatch) => {
   dispatch(singleArticleRequest());
   const token = localStorage.getItem("token");
   const articleId = localStorage.getItem("articleId");
-  console.log("Token:", token);
-  console.log("Retrieved Profile ID:", articleId);
   if (!articleId) {
-    console.error("No profile ID found in localStorage!");
     return;
   }
   try {
@@ -185,12 +167,8 @@ export const fetchSingleArticle = () => async (dispatch) => {
         Authorization: `Bearer ${token}`
       }
     });
-    if (!response.ok) {
-      console.log("response not ok");
-    }
     if (response.ok) {
       const singleArticle = await response.json();
-      console.log("Single article loading response:", singleArticle);
       dispatch(singleArticleSuccess(singleArticle));
     } else {
       throw new Error("Single article loading failed!");
