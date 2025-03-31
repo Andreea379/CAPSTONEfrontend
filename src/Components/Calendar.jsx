@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserArticles } from "../redux/actions/newArticle";
+import { Button } from "react-bootstrap";
+import { BiArrowBack, BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
 
 const Calendar = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile.profile);
   const profileLoading = useSelector((state) => state.profile.profileLoading);
   const profileError = useSelector((state) => state.profile.profileError);
-  console.log(profile);
-
-  const userArticles = useSelector((state) => state.article.userArticles);
-  const userArticlesLoading = useSelector(
-    (state) => state.profile.userArticlesLoading
-  );
-  const userArticlesError = useSelector(
-    (state) => state.profile.userArticlesError
-  );
-  console.log(userArticles);
-
   const profileData = profile[0];
   const articles = profileData?.article || [];
-  console.log(articles);
   const publishedDates = articles.map((article) => article.publishedAt);
-  console.log(publishedDates);
 
   const [currentDate, setCurrentDate] = useState(new Date());
   useEffect(() => {
@@ -90,28 +79,38 @@ const Calendar = () => {
     });
   };
 
-  if (userArticlesLoading) return <div>Loading profiles...</div>;
-  if (userArticlesError) return <div>Error profiles: {userArticlesError}</div>;
   if (profileLoading) return <div>Loading profiles...</div>;
   if (profileError) return <div>Error profiles: {profileError}</div>;
   return (
-    <div className="calendar">
-      <div className="calendar-header">
-        <button onClick={handlePrevMonth}>Prev</button>
-        <span>{currentDate.toLocaleString("default", { month: "long" })}</span>
-        <span>{currentDate.getFullYear()}</span>
-        <button onClick={handleNextMonth}>Next</button>
+    <div className="calendar text-center">
+      <div className="calendar-header d-flex  justify-content-center align-items-center">
+        <Button
+          className="bg-transparent border-0 text-dark"
+          onClick={handlePrevMonth}
+        >
+          <BiArrowFromRight />
+        </Button>
+        <span className="fw-bold">
+          {currentDate.toLocaleString("default", { month: "long" })}
+        </span>
+        {/* <span>{currentDate.getFullYear()}</span> */}
+        <Button
+          className="bg-transparent border-0 text-dark"
+          onClick={handleNextMonth}
+        >
+          <BiArrowFromLeft />
+        </Button>
       </div>
       <div className="calendar-grid">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
-          <div key={index} className="calendar-day-header">
+          <div key={index} className="calendar-day-header fw-semibold">
             {day}
           </div>
         ))}
         {calendarDays.map((day, index) => (
           <div
             key={index}
-            className={`date-cell ${day ? getDateColor(day) : ""}`}
+            className={`date-cell ${day ? getDateColor(day) : ""} rounded p-2`}
           >
             {day}
           </div>

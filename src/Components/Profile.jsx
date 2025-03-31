@@ -7,12 +7,13 @@ import ProfileModal from "./ProfileModal";
 import { useEffect } from "react";
 import { fetchProfile } from "../redux/actions/profile";
 import { BsPencilSquare } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Calendar from "./Calendar";
+import StatisticsModal from "./StatisticsModal";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const profile = useSelector((state) => state.profile.profile);
   const profileLoading = useSelector((state) => state.profile.profileLoading);
@@ -20,9 +21,11 @@ const Profile = () => {
   const [modalShow, setModalShow] = useState(false);
   const handleShow = () => setModalShow(true);
   const handleClose = () => setModalShow(false);
-  const onNavigate = () => {
-    navigate("/calendar");
-  };
+  const [modalShow1, setModalShow1] = useState(false);
+
+  const handleShow1 = () => setModalShow1(true);
+  const handleClose1 = () => setModalShow1(false);
+
   const callNewGet = useSelector((state) => state.profile.callNewGet);
   useEffect(() => {
     dispatch(fetchProfile());
@@ -70,7 +73,7 @@ const Profile = () => {
               <div className="profile-image-profile-container text-center mb-4 mx-auto mx-lg-0">
                 <Image
                   src={profileData?.profileImage || profileImage}
-                  className="profile-image-home rounded mt-1"
+                  className="profile-image-home rounded mt-1 object-fit-cover"
                 />
               </div>
             </Col>
@@ -99,12 +102,16 @@ const Profile = () => {
               <div>
                 <u style={{ color: "rgb(246, 157, 75)" }}>
                   <span
-                    className="fs-6 pb-sm-3 fw-bold my-5"
-                    style={{ color: "rgb(246, 157, 75)" }}
-                    onClick={onNavigate}
+                    className="fs-6 pb-sm-3 fw-bold my-5 "
+                    style={{ color: "rgb(246, 157, 75)", cursor: "pointer" }}
+                    onClick={handleShow1}
                   >
                     Statistics
                   </span>
+                  <StatisticsModal
+                    show={modalShow1}
+                    handleClose={handleClose1}
+                  />
                 </u>
               </div>
             </Col>
@@ -162,13 +169,7 @@ const Profile = () => {
             )}
           </Row>
         </div>
-        <div className="d-none d-xl-block">
-          <Calendar />
-        </div>
       </Container>
-      <div className="d-lg-block d-xl-none">
-        <Calendar />
-      </div>
     </>
   );
 };
