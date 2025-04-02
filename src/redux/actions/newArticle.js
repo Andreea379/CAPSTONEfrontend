@@ -1,5 +1,9 @@
-import { CALL_NEW_GET } from "./profile";
+// export const CALL_NEW_GET = "CALL_NEW_GET";
 
+// export const callNewGet = (newGet) => ({
+//   type: CALL_NEW_GET,
+//   payload: newGet
+// });
 import { callNewGet } from "./profile";
 export const NEW_ARTICLE_REQUEST = "NEW_ARTICLE_REQUEST";
 export const NEW_ARTICLE_SUCCESS = "NEW_ARTICLE_SUCCESS";
@@ -82,9 +86,11 @@ export const fetchAllArticles = () => async (dispatch) => {
       method: "GET",
       headers: {}
     });
-
-    const articles = await response.json();
-    dispatch(allArticlesSuccess(articles));
+    if (response.ok) {
+      const articles = await response.json();
+      dispatch(allArticlesSuccess(articles));
+      console.log(articles);
+    }
   } catch (error) {
     dispatch(allArticlesFailure(error.message));
   }
@@ -153,13 +159,10 @@ export const singleArticleFailure = (error) => ({
   payload: error
 });
 
-export const fetchSingleArticle = () => async (dispatch) => {
+export const fetchSingleArticle = (articleId) => async (dispatch) => {
   dispatch(singleArticleRequest());
   const token = localStorage.getItem("token");
-  const articleId = localStorage.getItem("articleId");
-  if (!articleId) {
-    return;
-  }
+
   try {
     const response = await fetch(`http://localhost:8080/article/${articleId}`, {
       method: "GET",
