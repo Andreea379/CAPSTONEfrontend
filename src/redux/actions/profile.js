@@ -114,3 +114,47 @@ export const updateProfile =
       dispatch(updateProfileFailure(error.message));
     }
   };
+export const ARTICLE_PROFILE_REQUEST = "ARTICLE_PROFILE_REQUEST";
+export const ARTICLE_PROFILE_SUCCESS = "ARTICLE_PROFILE_SUCCESS";
+export const ARTICLE_PROFILE_FAILURE = "ARTICLE_PROFILE_FAILURE";
+
+export const articleProfileRequest = () => ({
+  type: ARTICLE_PROFILE_REQUEST
+});
+
+export const articleProfileSuccess = (profile) => ({
+  type: ARTICLE_PROFILE_SUCCESS,
+  payload: profile
+});
+
+export const articleProfileFailure = (error) => ({
+  type: ARTICLE_PROFILE_FAILURE,
+  payload: error
+});
+
+export const fetchArticleProfile = (articleId) => async (dispatch) => {
+  dispatch(articleProfileRequest());
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch(
+      `http://localhost:8080/profile/article/${articleId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    if (!response.ok) {
+      console.log("response not ok");
+    }
+    if (response.ok) {
+      const profile = await response.json();
+      dispatch(articleProfileSuccess(profile));
+    } else {
+      throw new Error("Profile loading failed!");
+    }
+  } catch (error) {
+    dispatch(articleProfileFailure(error.message));
+  }
+};

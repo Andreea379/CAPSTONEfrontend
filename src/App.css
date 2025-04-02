@@ -178,3 +178,14 @@ body {
 .date-cell:hover {
   background-color: #ddd;
 }
+.profile-image-profile-container-article {
+  background-color: rgb(246, 157, 75) !important;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}
+.profile-image-article {
+  border-radius: 50% !important;
+  width: 48px;
+  height: 48px;
+}

@@ -18,8 +18,9 @@ const Home = () => {
     (state) => state.article.allArticlesError
   );
 
-  const handleClick = () => {
-    navigate("/readArticle");
+  const handleClick = (index) => {
+    console.log(allArticles[index].articleId);
+    navigate(`/readArticle/${allArticles[index].articleId}`);
   };
   useEffect(() => {
     dispatch(fetchAllArticles());
@@ -38,12 +39,12 @@ const Home = () => {
             className={`d-flex justify-content-center  align-items-center ${
               index % 2 === 0 ? "" : "flex-row-reverse"
             }`}
-            key={articles.articleId}
+            key={articles.index}
           >
             <div className="profile-image-home-container d-flex justify-content-center align-items-center ">
               <Image
                 src={articles.authorProfileImage || avatar}
-                className="profile-image-home rounded rounded-sm "
+                className="profile-image-home rounded rounded-sm object-fit-cover"
               />
             </div>
             <div className="triangle-left"></div>
@@ -55,7 +56,12 @@ const Home = () => {
                 <span className="text-truncate w-75 d-block fs-5">
                   {articles.content || "No content"}
                 </span>
-                <a className="login-anchor w-25 p-0 ms-2" onClick={handleClick}>
+                <a
+                  className="login-anchor w-25 p-0 ms-2"
+                  onClick={() => {
+                    handleClick(index);
+                  }}
+                >
                   <span className="d-none d-sm-none d-md-block">read more</span>
                   <span className="d-block d-md-none">...</span>
                 </a>

@@ -5,7 +5,10 @@ import {
   PROFILE_REQUEST,
   PROFILE_SUCCESS,
   PROFILE_FAILURE,
-  CALL_NEW_GET
+  CALL_NEW_GET,
+  ARTICLE_PROFILE_REQUEST,
+  ARTICLE_PROFILE_SUCCESS,
+  ARTICLE_PROFILE_FAILURE
 } from "../actions/profile";
 const initialState = {
   profileLoading: false,
@@ -16,7 +19,11 @@ const initialState = {
   updateProfile: [],
   updateProfileError: null,
 
-  callNewGet: false
+  callNewGet: false,
+
+  articleProfileLoading: false,
+  articleProfile: [],
+  articleProfileError: null
 };
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -64,6 +71,26 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         callNewGet: action.payload
+      };
+    case ARTICLE_PROFILE_REQUEST:
+      return {
+        ...state,
+        articleProfileLoading: true
+      };
+
+    case ARTICLE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        articleProfileLoading: false,
+        articleProfile: [action.payload],
+        articleProfileError: null
+      };
+
+    case ARTICLE_PROFILE_FAILURE:
+      return {
+        ...state,
+        articleProfileLoading: false,
+        articleProfileError: action.payload
       };
 
     default:
