@@ -39,6 +39,7 @@ export const fetchLogin = (login, navigate) => async (dispatch) => {
       localStorage.setItem("token", loginResponse.token);
       localStorage.setItem("userId", loginResponse.id);
       localStorage.setItem("profileId", loginResponse.profileId);
+      localStorage.setItem("loggedIn", JSON.stringify(true));
       console.log("Token set in localStorage:", loginResponse.token);
       console.log("UserId set in localStorage:", loginResponse.id);
       navigate("/home");

@@ -36,6 +36,10 @@ const MyNavBar = () => {
     navigate("/profile");
   };
 
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   const search = (e) => {
     const firstName = e.target.value;
     setFirstnameQuery(firstName);
@@ -105,7 +109,7 @@ const MyNavBar = () => {
               title={
                 <Image
                   src={profileData?.profileImage || profileImage}
-                  className="profile-image-home rounded"
+                  className="profile-image-home rounded object-fit-cover"
                   style={{ width: "45px", height: "45px" }}
                 />
               }
@@ -117,7 +121,10 @@ const MyNavBar = () => {
               >
                 Profile
               </Nav.Link>
-              <Nav.Link className="profile-dropdown pb-2 p-1 ps-2 d-flex align-items-center">
+              <Nav.Link
+                className="profile-dropdown pb-2 p-1 ps-2 d-flex align-items-center"
+                onClick={logout}
+              >
                 Log out <BsBoxArrowRight className="ms-2" />
               </Nav.Link>
             </NavDropdown>
