@@ -58,7 +58,7 @@ const MyNavBar = () => {
   const profileData = profile[0];
   console.log(profileData);
   return (
-    <Navbar expand="md" className="border-bottom">
+    <Navbar expand="md" className="border-bottom sticky-top fixed-top bg-light">
       <Container
         fluid
         className="d-flex  justify-content-between align-items-center mx-3 mx-md-5"

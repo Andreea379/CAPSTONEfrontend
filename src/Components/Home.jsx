@@ -31,12 +31,13 @@ const Home = () => {
 
   return (
     <>
-      <MyNavBar />
+      <MyNavBar className="sticky-top fixed-top" />
 
-      <Container className="mt-5">
+      <Container className="home-container mt-5">
         {allArticles.map((articles, index) => (
           <div
-            className={`d-flex justify-content-center  align-items-center ${
+            id="badge-home"
+            className={`d-flex justify-content-center bg-light align-items-center ${
               index % 2 === 0 ? "" : "flex-row-reverse"
             }`}
             key={articles.index}

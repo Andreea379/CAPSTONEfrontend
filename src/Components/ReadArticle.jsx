@@ -41,10 +41,10 @@ const ReadArticle = () => {
   return (
     <>
       <MyNavBar />
-      <Container className="mt-5 mx-auto">
+      <Container className="mt-5 mx-auto bg-light">
         <div className="w-100">
           <div className="w-75 mx-auto my-5 ">
-            <h1 className="fw-bold border-bottom ">
+            <h1 className="fw-bold border-bottom " style={{ fontSize: "70px" }}>
               {singleArticle.title || "Untitled article"}
             </h1>
             <div className="d-flex align-items-center my-5 w-75">

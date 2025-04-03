@@ -55,7 +55,7 @@ const NewArticle = () => {
   const profileData = profile[0];
   return (
     <Form onSubmit={handleSubmit}>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center bg-light">
         <Container
           fluid
           className="border-bottom w-100 d-flex justify-content-between align-items-center py-2"
@@ -85,7 +85,7 @@ const NewArticle = () => {
 
             <Image
               src={profileData?.profileImage || profileImage}
-              className="profile-image-home rounded me-5"
+              className="profile-image-home rounded me-5 object-fit-cover"
               style={{ width: "45px", height: "45px" }}
               onClick={handleClick}
             />
@@ -93,8 +93,8 @@ const NewArticle = () => {
         </Container>
       </div>
       <Container className="d-flex justify-content-center mt-5">
-        <div className="w-75">
-          <div className="d-flex flex-row justify-content-between w-100 mb-2">
+        <div className="w-75  bg-light mx-2">
+          <div className="d-flex flex-row justify-content-between w-100 mb-2 mt-5">
             <div className="file-upload-button-container">
               <Form.Control
                 type="file"

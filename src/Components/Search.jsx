@@ -22,7 +22,7 @@ const Search = () => {
         {firstnameProfiles.length > 0 ? (
           firstnameProfiles.map((firstnameProfile) => (
             <div
-              className="d-flex justify-content-center  align-items-center mb-4"
+              className="d-flex justify-content-center bg-light align-items-center mb-4"
               key={firstnameProfile.id}
             >
               <div className="profile-image-home-container d-flex justify-content-center align-items-center ">
@@ -34,7 +34,7 @@ const Search = () => {
               <div className="triangle-left"></div>
               <div className="container-article-home  w-75 my-4 rounded-pill px-5">
                 <span className="fs-4 fw-bold ">
-                  {firstnameProfile.firstName || ""}{" "}
+                  {firstnameProfile.firstName || ""}
                 </span>
                 <span className="fs-4 fw-bold ">
                   {firstnameProfile.lastName || ""}

@@ -3,11 +3,8 @@ body {
   /* background-color: rgb(240, 231, 235); */
   font-family: "Courier New", Courier, monospace;
   /* font-family: "Roboto", sans-serif; */
+  background-image: url("/src/assets/background.png");
 }
-/* * {
-  background-color: black;
-  color: white;
-} */
 #logo {
   color: rgb(255, 123, 0);
   font-weight: 1000;
@@ -38,6 +35,10 @@ body {
 }
 #badge {
   box-shadow: -5px 5px 20px rgb(233, 172, 115);
+  border-color: rgb(250, 225, 202) !important;
+}
+#badge-home {
+  box-shadow: -5px 10px 20px rgb(233, 172, 115);
   border-color: rgb(250, 225, 202) !important;
 }
 .border-bottom {
@@ -97,6 +98,9 @@ body {
 }
 .container-article-home {
   border: 3px solid rgb(246, 157, 75) !important;
+}
+.container-article-home:hover {
+  box-shadow: inset -5px -10px rgb(233, 172, 115) !important;
 }
 #triangle-right {
   width: 0;
